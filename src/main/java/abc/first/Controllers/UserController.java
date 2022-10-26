@@ -1,39 +1,40 @@
-package abc.first.controller;
+package abc.first.Controllers;
 
 import java.util.List;
 import java.util.Optional;
 
 import abc.first.Domain.UserDomain;
 import abc.first.Exception.UserNotFoundException;
-import abc.first.Service.UserServices;
+import abc.first.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 
 public class UserController {
     @Autowired
-    private UserServices userServices;
+    private UserService userServices;
 
-    @GetMapping("/all")
+    @GetMapping("/") //getALLTickets
     public List<UserDomain> allUsers() {
         return userServices.findAll();
+
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")  //AddNewUser
     public String addUser(@RequestBody UserDomain userdata)
     {
         return userServices.saveUser(userdata);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/")   //updateExistingUsers
     public String updateUser(@RequestBody UserDomain newUserData)
     {
         return userServices.updateUser(newUserData);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/{id}")    //findUserById
     public Optional<UserDomain> getUserById(@PathVariable Long id)
     {
 
@@ -46,7 +47,7 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/")       //deleteUserById
     public String deleteUser(@RequestBody UserDomain deleteUserData){
         return userServices.deleteUser(deleteUserData);
     }

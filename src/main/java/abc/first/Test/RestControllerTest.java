@@ -8,8 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.List;
 
-import abc.first.controller.UserController;
-import org.hamcrest.Matchers;
+import abc.first.Controllers.UserController;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -20,14 +19,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import abc.first.Domain.UserDomain;
-import abc.first.Service.UserServices;
+import abc.first.Services.UserService;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
 public class RestControllerTest {
 
     @MockBean
-    UserServices  userServices;
+    UserService userServices;
     @Autowired
     MockMvc mockMvc;
     @Test
@@ -35,7 +34,7 @@ public class RestControllerTest {
         UserDomain userDomain = new UserDomain(123l, "piyush", "1234567890", "Bellandur", "additional Details Test");
         List<UserDomain> users = Arrays.asList(userDomain);
         Mockito.when(userServices.findAll()).thenReturn(users);
-        mockMvc.perform(get("http://localhost:9090/user/all"))
+        mockMvc.perform(get("http://localhost:9090/users/"))
                 .andExpect(status().isOk());
 
     }
